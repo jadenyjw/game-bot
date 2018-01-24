@@ -15,7 +15,7 @@ function getBalance() {
       res.on("end", () => {
         try{
           body = JSON.parse(body);
-          return body;
+          client.user.setGame("GRLC Balance: " + body)
         }
         catch(error){
 
@@ -31,9 +31,7 @@ function getBalance() {
 
 client.on('ready', () => {
 
-    setInterval(function() { client.user.setGame("GRLC Balance: " + getBalance()); console.log("GRLC Balance: " + getBalance())}, 100000);
+    setInterval(function() { getBalance() }, 120000);
 
 })
-
-
 client.login(process.env.SNAKER_TOKEN);
