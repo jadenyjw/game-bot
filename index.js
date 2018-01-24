@@ -1,15 +1,37 @@
-
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-var counter = 0;
+const https = require("https");
+
+function getBalance() {
+
+    const url = "https://explorer.grlc-bakery.fun/ext/getbalance/GfT5tBDrKEVpAw4oDEjXGMkx4anqDr3R4u";
+    https.get(url, res => {
+      res.setEncoding("utf8");
+      let body = "";
+      res.on("data", data => {
+        body += data;
+      });
+      res.on("end", () => {
+        try{
+          body = JSON.parse(body);
+          return body;
+        }
+        catch(error){
+
+        }
+
+      });
+    });
+
+
+
+}
+
 
 client.on('ready', () => {
 
-    var str = `On the first day of Christmas,my true love sent to me:,A Partridge in a Pear Tree,,On the second day of Christmas,my true love sent to me:,2 Turtle Doves,and a Partridge in a Pear Tree,,On the third day of Christmas,my true love sent to me:,3 French Hens,2 Turtle Doves,and a Partridge in a Pear Tree,,On the fourth day of Christmas,my true love sent to me:,4 Calling Birds,3 French Hens,2 Turtle Doves,and a Partridge in a Pear Tree,,On the fifth day of Christmas,my true love sent to me:,5 Golden Rings,4 Calling Birds,3 French Hens,2 Turtle Doves,and a Partridge in a Pear Tree,,On the sixth day of Christmas,my true love sent to me:,6 Geese a Laying,5 Golden Rings,4 Calling Birds,3 French Hens,2 Turtle Doves,and a Partridge in a Pear Tree,,On the seventh day of Christmas,my true love sent to me:,7 Swans a Swimming,6 Geese a Laying,5 Golden Rings,4 Calling Birds,3 French Hens,2 Turtle Doves,and a Partridge in a Pear Tree,,On the eighth day of Christmas,my true love sent to me:,8 Maids a Milking,7 Swans a Swimming,6 Geese a Laying,5 Golden Rings,4 Calling Birds,3 French Hens,2 Turtle Doves,and a Partridge in a Pear Tree,,On the ninth day of Christmas,my true love sent to me:,9 Ladies Dancing,8 Maids a Milking,7 Swans a Swimming,6 Geese a Laying,5 Golden Rings,4 Calling Birds,3 French Hens,2 Turtle Doves,and a Partridge in a Pear Tree,,On the tenth day of Christmas,my true love sent to me:,10 Lords a Leaping,9 Ladies Dancing,8 Maids a Milking,7 Swans a Swimming,6 Geese a Laying,5 Golden Rings,4 Calling Birds,3 French Hens,2 Turtle Doves,and a Partridge in a Pear Tree,,On the eleventh day of Christmas,my true love sent to me:,11 Pipers Piping,10 Lords a Leaping,9 Ladies Dancing,8 Maids a Milking,7 Swans a Swimming,6 Geese a Laying,5 Golden Rings,4 Calling Birds,3 French Hens,2 Turtle Doves,and a Partridge in a Pear Tree,,On the twelfth day of Christmas,my true love sent to me:,12 Drummers Drumming,11 Pipers Piping,10 Lords a Leaping,9 Ladies Dancing,8 Maids a Milking,7 Swans a Swimming,6 Geese a Laying,5 Golden Rings,4 Calling Birds,3 French Hens,2 Turtle Doves,and a Partridge in a Pear Tree`.split(/[,.?]+/);
-    counter = 0;
-    len = str.length
-    setInterval(function() { client.user.setGame(str[counter]); counter = (counter+1)%len;}, 10000);
+    setInterval(function() { client.user.setGame("GRLC Balance: " + getBalance()); console.log("GRLC Balance: " + getBalance())}, 100000);
 
 })
 
